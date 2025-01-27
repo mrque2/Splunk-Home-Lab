@@ -1,0 +1,31 @@
+In this section, I will provide an overview of the steps to take in order for you to install Splunk and create your very own Splunk Environment. I will aslo be providing an explanation to their functions to understand how they tie in together
+
+NOTE: NEVER RUN Splunk AS THE ROOT USER.
+	1. Create a splunk user with chown and sudo permissions.
+		a. Create the splunk group
+			i. Sudo addgroup splunk
+		b. Create the Splunk user:
+			i. sudo adduser splunk
+		c. Add the Splunk user to the splunk group
+			i. sudo usermod -aG splunk splunk
+		d. Provide the Splunk user with sudo permissions
+			i. Sudo usermod -aG sudo splunk
+		e. Verify that the splunk user has been added to the splunk group
+			i. groups splunk
+	2. Navigate to the installation directory.
+		a. cd /opt 
+			i. Install the splunk directory with tar -xvf <splunk tgz file>
+		b. Assign the ownership of the splunk directory to the splunk user.
+			i. sudo chown -R splunk:splunk /opt/splunk
+	3. Start the Splunk Instance
+		a. ./splunk start --accept-license --answer-yes
+		b. Create a username 
+		c. Create a password
+	4. Enable boot-start for splunk (Personal Preference)
+		a. sudo ./splunk enable boot-start -user splunk
+		b. Verify that the splunk service is inside of the init.d directory. 
+			i. ls /etc/init.d/splunk
+
+You should be able to access your splunk instance in your local host environment on http://localhost:8000/. 
+
+If you are using a cloud environment such as AWS, GCP, or AZURE, use the external IP:8000 to access your splunk web.
